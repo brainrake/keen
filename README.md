@@ -8,12 +8,12 @@ Livecoding for the Web, from your desktop editor!
 
 ## Why
 
-I want instant feedback while coding on the Web. I want to livecode (like on [livecodelab](http://www.sketchpatch.net/livecodelab/index.html) and [livecoder.net](http://livecoder.net/)) when I'm working on a project, not just to play around. I want to use my desktop editor (emacs, vim, sublime, textmate, etc.), not a web-based editor like [codemirror](http://codemirror.net/) or [ace](http://ace.ajax.org/).
+I want instant feedback while coding on the Web. I want to livecode (like on [livecodelab](http://www.sketchpatch.net/livecodelab/index.html) and [livecoder.net](http://livecoder.net/)) when I'm working on a project, not just to play around. As such, I want to use my desktop editor (emacs, vim, sublime, textmate, etc.), not a web-based editor like [codemirror](http://codemirror.net/) or [ace](http://ace.ajax.org/).
 
 
 ## How
 
-Keen will watch serve a local directory via HTTP, watch for file (script, style) changes and update those files in the browser.
+Keen will serve a local directory via HTTP, watch for file (script, style) changes and update those files in the browser.
 
 It works by serving up a wrapper at `/` that loads `index.html` from the local directory in an iframe. Whenever files referenced by `<script>` or `<link rel="stylesheet">` tags change on disk, they are sent to the browser via `socket.io`. Scripts are then `eval`'d, and styles are updated.
 

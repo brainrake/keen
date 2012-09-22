@@ -1,0 +1,19 @@
+{
+  "name": "keen",
+  "version": "0.0.1",
+  "description": "js livecoding",
+  "main": "keen.js",
+  "bin": "./keen.js",
+  "dependencies": {
+    "express": "~3.0.0rc4",
+    "socket.io": "~0.9.10",
+    "coffee-script": "~1.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git@github.com:brainrape/keen.git",
+  "author": "brainrape",
+  "license": "MIT"
+}

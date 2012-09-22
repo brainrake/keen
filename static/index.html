@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Livecoding with Keen</title>
+
+    <script src="/__keen/socket.io.min.js"></script>
+    <script src="/__keen/zepto.min.js"></script>
+
+    <style>
+      html, body, iframe {margin:0; padding:0; border:0; height: 99.5%; width: 100%;}
+
+    </style>
+
+    <script>
+      // wait for iframe to load
+      $(function() {
+        $('iframe').on('load', function(){
+          window.iframe_loaded = true
+          watch_files()
+        })
+      })
+
+      window.socket = io.connect();
+
+      // wait for socket to connect
+      socket.on('connect', function () {
+        window.socket_connected = true
+        watch_files()
+      });
+
+      // notify server to watch files
+      window.watch_files = function() {
+        if (!window.socket_connected || !window.iframe_loaded) {
+          return
+        }
+
+        scripts = $($('iframe')[0].contentDocument).find('script')
+        scripts.each(function(i, s) {
+          var src = $(s).attr('src')
+          if (src && (src.indexOf('://') < 0) && (src.indexOf('//') != 0) ) {
+            if (src[0] == '/') { src = src.slice(1) }
+            socket.emit('watch', src)
+          }
+        })
+
+        styles = $($('iframe')[0].contentDocument).find('link[rel=stylesheet]')
+        styles.each(function(i,s) {
+          var src = $(s).attr('href')
+          if (src && (src.indexOf('://') < 0) && (src.indexOf('//') != 0) ) {
+            if (src[0] == '/') { src = src.slice(1) }
+            socket.emit('watch', src)
+          }
+        })
+      }
+
+      // update file
+      socket.on('update', function (filename, data) {
+        var t = new Date().getTime();
+        success = false
+
+        scripts = $($('iframe')[0].contentDocument).find('script')
+        scripts.each(function(i, s) {
+          var src = $(s).attr('src')
+          var idx = src.indexOf(filename)
+
+          if (idx == 0 || src[0] == '/' && idx == 1) {
+            // eval script in iframe's context
+            $('iframe')[0].contentWindow.eval(data)
+
+            console.log('[keen] updated:', filename)
+            success = true
+          }
+        })
+
+        styles = $($('iframe')[0].contentDocument).find('link[rel=stylesheet]')
+        styles.each(function(i,s) {
+          var src = $(s).attr('href')
+          var idx = src.indexOf(filename)
+
+          if (idx == 0 || src[0] == '/' && idx == 1) {
+            // replace style by changing GET query parameters
+            if ($(s).attr('href').indexOf('?')<0 ) {
+              $(s).attr('href', $(s).attr('href') + '?')
+            }
+            $(s).attr('href', $(s).attr('href').split('&__keen=')[0]+'&__keen='+t)
+            console.log('[keen] updated:', filename)
+            success = true
+          }
+        })
+
+        if (success == false) {
+          console.log('[keen] update failed (target not found):', filename)
+        }
+      });
+
+
+    </script>
+  </head>
+
+
+  <body>
+
+    <iframe src="index.html"></iframe>
+
+  </body>
+
+
+</html>
+
+

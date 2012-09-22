@@ -2,8 +2,9 @@
  Keen
 ======
 
-
-Livecoding for the Web, from your desktop editor!
+---------------------------------------------------
+ Livecoding for the Web, from your desktop editor!
+---------------------------------------------------
 
 
 ## Why
@@ -15,7 +16,7 @@ I want instant feedback while coding on the Web. I want to livecode (like on [li
 
 Keen will watch serve a local directory via HTTP, watch for file (script, style) changes and update those files in the browser.
 
-It works by serving up a wrapper at `/` that loads `index.html` from the local directory in an iframe. Whenever files referenced by `<script>`,  and `<link rel="stylesheet">` tags change on disk, they are sent to the browser via `socket.io`. Scripts are then `eval`'d, and styles are updated.
+It works by serving up a wrapper at `/` that loads `index.html` from the local directory in an iframe. Whenever files referenced by `<script>` or `<link rel="stylesheet">` tags change on disk, they are sent to the browser via `socket.io`. Scripts are then `eval`'d, and styles are updated.
 
 
 ## What
@@ -35,7 +36,7 @@ Use with CoffeeScript, Sass, Compass, etc. in 'watch' mode for great justice. Us
 
 ### Usage
 
-    keen [[<ip>:]<port>]
+    keen
 
 
 ### Caveats

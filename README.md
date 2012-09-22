@@ -2,9 +2,8 @@
  Keen
 ======
 
----------------------------------------------------
- Livecoding for the Web, from your desktop editor!
----------------------------------------------------
+
+Livecoding for the Web, from your desktop editor!
 
 
 ## Why

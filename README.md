@@ -20,7 +20,7 @@ It works by serving up a wrapper at `/` that loads `index.html` from the local d
 
 ## What
 
-Keen is a (node.js) module, written in coffescript, using socket.io.
+Keen is a [node.js](http://nodejs.org/) module, written in coffescript, using socket.io.
 
 Install it with `npm install -g keen`.
 
